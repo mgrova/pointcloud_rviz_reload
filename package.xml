@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+
+   <name>pointcloud_rviz_reload</name>
+   <version>0.1.0</version>
+   <description>The pointcloud_rviz_reload package</description>
+
+   <maintainer email="mmontes@catec.aero">Marco A. Montes Grova</maintainer>
+
+   <license>BSD</license>
+
+   <buildtool_depend>catkin</buildtool_depend>
+
+   <depend>roscpp</depend>
+
+   <build_depend>rviz</build_depend>   
+   <exec_depend>rviz</exec_depend>
+
+   <build_depend>pcl_ros</build_depend>
+   <exec_depend>pcl_ros</exec_depend>
+
+</package>
