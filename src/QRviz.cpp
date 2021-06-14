@@ -15,6 +15,8 @@
 #include <rviz/ogre_helpers/shape.h>
 #include <rviz/ogre_helpers/point_cloud.h>
 
+#include <chrono>
+
 namespace pointcloud_rviz_reload
 {
 
@@ -84,7 +86,14 @@ void QRviz::showPointCloudFromPCD(const QString &pcd_path)
     auto parser = std::make_unique<PCDFileHandler>();
     rviz::PointCloud* tgt_cloud = new rviz::PointCloud();
     
-    tgt_cloud = parser->convertPCDToPointCloud(pcd_path.toStdString());
+    std::cout << "[showPointCloudFromPCD] Reading pointcloud from: " << pcd_path.toStdString() << std::endl;
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
+    tgt_cloud = parser->convertFileToPointCloud(pcd_path);
+    
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::cout << "[showPointCloudFromPCD] Elapsed time loading cloud: " 
+              << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() / 1000.0f << " [s]" << std::endl;
 
     Ogre::SceneNode* scene_node = _visualizationManager->getSceneManager()->getRootSceneNode()->createChildSceneNode();           
     scene_node->attachObject(tgt_cloud);
